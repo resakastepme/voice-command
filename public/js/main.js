@@ -105,7 +105,7 @@ recordBtn.addEventListener("click", () => {
 
 function stopRecording() {
     recognition.stop();
-    recordBtn.querySelector("p").innerHTML = "Mulai mendegar";
+    recordBtn.querySelector("p").innerHTML = "Mulai dengarkan";
     recordBtn.classList.remove("recording");
     recording = false;
 }
