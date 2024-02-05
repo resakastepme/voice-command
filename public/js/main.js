@@ -7,19 +7,25 @@ let SpeechRecognition =
     recording = false;
 
 function soundcloud(text) {
-
     $.ajax({
-        url: windows.location.origin + '',
+        url: '/voice',
         type: 'POST',
         data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
             text: text
         }, success: function (response) {
-            $('#iframe').html('');
-            $('#iframe').html('<iframe width="100%" height="500" scrolling="no" frameborder="no" allow="autoplay"\
-            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'+ response + '&amp;auto_play=true">\
-            </iframe>');
+            if (response.result == 'ID tidak ditemukan.') {
+                console.log('ID tidak ditemukan.');
+            } else {
+                console.log('berhasil');
+                $('#iframe').html('');
+                $('#iframe').html('<iframe width="100%" height="500" scrolling="no" frameborder="no" allow="autoplay"\
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'+ response.result + '&color=%23ff5500&auto_play=true\
+                &visual=true"></iframe>');
+            }
         }
     })
+
 }
 
 function speechToText() {
@@ -38,7 +44,7 @@ function speechToText() {
             $('#result').html('');
             result.innerHTML += " " + speechResult;
             $('#hiddenOutput').val(speechResult);
-            downloadBtn.disabled = false;
+            // downloadBtn.disabled = false;
         };
         recognition.onspeechend = () => {
             speechToText();
