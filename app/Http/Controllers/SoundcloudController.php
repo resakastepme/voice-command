@@ -42,15 +42,11 @@ class SoundcloudController extends Controller
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-        if ($err) {
-            return "cURL Error: " . $err;
+        $responseData = json_decode($response, true);
+        if (isset($responseData['tracks']['items'][0]['id'])) {
+            return $responseData['tracks']['items'][0]['id'];
         } else {
-            $responseData = json_decode($response, true);
-            if (isset($responseData['tracks']['items'][0]['id'])) {
-                return $responseData['tracks']['items'][0]['id'];
-            } else {
-                return "ID tidak ditemukan.";
-            }
+            return "ID tidak ditemukan.";
         }
     }
 

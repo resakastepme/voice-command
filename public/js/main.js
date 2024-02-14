@@ -8,15 +8,20 @@ let SpeechRecognition =
 
 function soundcloud(text) {
     $.ajax({
-        url: '/voice',
+        url: window.location.origin + '/voice',
         type: 'POST',
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
             text: text
         }, success: function (response) {
+            console.log('Result: ' + response.result);
             if (response.result == 'ID tidak ditemukan.') {
-                console.log('ID tidak ditemukan.');
-            } else {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Maaf",
+                    text: "Lagu tidak ditemukan"
+                });
+            } else{
                 console.log('berhasil');
                 $('#iframe').html('');
                 $('#iframe').html('<iframe width="100%" height="500" scrolling="no" frameborder="no" allow="autoplay"\
@@ -32,7 +37,7 @@ function speechToText() {
     try {
         recognition = new SpeechRecognition();
         recognition.lang = 'id';
-        recognition.interimResults = true;
+        // recognition.interimResults = true;
         recordBtn.classList.add("recording");
         recordBtn.querySelector("p").innerHTML = "Mendengar...";
         $('#mendengarkanIcon').show();
@@ -111,6 +116,8 @@ recordBtn.addEventListener("click", () => {
 
 function stopRecording() {
     recognition.stop();
+    $('#standbyIcon').show();
+    $('#mendengarkanIcon').hide();
     recordBtn.querySelector("p").innerHTML = "Mulai dengarkan";
     recordBtn.classList.remove("recording");
     recording = false;

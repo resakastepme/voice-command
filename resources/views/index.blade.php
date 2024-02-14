@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title> VOICE COMMAND </title>
 </head>
@@ -45,6 +46,7 @@
 
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script type="module" src="{{ asset('js/ionicons.esm.js') }}"></script>
 <script nomodule src="{{ asset('js/ionicons.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
